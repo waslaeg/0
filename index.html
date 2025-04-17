@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Meta SEO Tags for "وصلة - شركة تسويق إلكتروني" -->
+<title>وصلة | شركة تسويق إلكتروني - حلول تسويقية احترافية</title>
+
+<meta name="description" content="شركة وصلة للتسويق الإلكتروني تقدم خدمات إدارة الحملات الإعلانية، تصميم المحتوى، كتابة المحتوى التسويقي، وتحقيق نتائج ملموسة لنمو عملك. تواصل معنا الآن.">
+<meta name="keywords" content="شركة تسويق إلكتروني, وصلة, شركة وصلة, تسويق رقمي, إدارة حملات إعلانية, شركة وصلة للتسويق, كتابة محتوى تسويقي, خدمات تسويق">
+<meta name="author" content="شركة وصلة">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph for Social Media -->
+<meta property="og:title" content="وصلة | شركة تسويق إلكتروني - حلول تسويق مبتكرة">
+<meta property="og:description" content="نحن في وصلة نقدم لك حلول تسويق إلكتروني مخصصة تساعدك في الوصول لعملائك وتحقيق أهدافك.">
+<meta property="og:image" content="https://waslaeg.github.io/0/logo.png"> <!-- غيّر الرابط إلى صورة شعارك -->
+<meta property="og:url" content="https://waslaeg.github.io/0/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="وصلة">
+
+<!-- Favicon -->
+<link rel="icon" href="favicon.png" type="image/x-icon">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="https://waslaeg.github.io/0/">
+    <title>وُصْلَة | وكالة تسويق رقمي متكاملة</title>
+    <style>
+        /* الأساسيات */
+        :root {
+            --primary: #4F46E5;
+            --secondary: #10B981;
+            --dark: #1F2937;
+            --light: #F9FAFB;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light);
+            color: var(--dark);
+            transition: all 0.3s ease;
+        }
+        
+        /* قائمة البرجر */
+        .header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-left: 10px;
+        }
+        
+        .burger-menu {
+            width: 30px;
+            height: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .burger-line {
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background-color: white;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            padding: 80px 20px 20px;
+            transition: right 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .nav-links.active {
+            right: 0;
+        }
+        
+        .nav-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .nav-links li {
+            margin-bottom: 1.5rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .close-menu {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* تأثيرات البرجر عند الفتح */
+        .burger-menu.active .burger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .burger-menu.active .burger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .burger-menu.active .burger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+        
+        /* القسم الرئيسي */
+        .hero {
+            background: linear-gradient(135deg, var(--primary), #6C5CE7);
+            color: white;
+            padding: 7rem 2rem 5rem;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        
+        .cta-button {
+            background-color: white;
+            color: var(--primary);
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* قسم الخدمات */
+        .services {
+            padding: 3rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .services h2 {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--dark);
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+        }
+        
+        .service-card h3 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+        
+        /* للشاشات الكبيرة */
+        @media (min-width: 768px) {
+            .burger-menu {
+                display: none;
+            }
+            
+            .nav-links {
+                position: static;
+                width: auto;
+                height: auto;
+                background: transparent;
+                box-shadow: none;
+                padding: 0;
+                right: 0;
+            }
+            
+            .nav-links ul {
+                display: flex;
+                gap: 1.5rem;
+            }
+            
+            .nav-links li {
+                margin-bottom: 0;
+            }
+            
+            .close-menu {
+                display: none;
+            }
+            
+            .hero {
+                padding: 8rem 2rem 6rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- الهيدر مع قائمة البرجر -->
+    <header class="header">
+        <div class="logo">
+            <img src="logo.png" alt="لوجو وصلة">
+            وُصْلَة
+        </div>
+        
+        <div class="burger-menu">
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+        </div>
+        
+        <nav class="nav-links">
+            <i class="fas fa-times close-menu"></i>
+            <ul>
+                 <li><a href="index.html">الرئيسية</a></li>
+<li><a href="about.html">من نحن</a></li>
+                <li><a href="services.html">الخدمات</a></li>
+                <li><a href="portfolio.html">أعمالنا</a></li>
+                <li><a href="test.html">اراء العملاء</a></li>
+<li><a href="blog.html">المدونه </a></li>
+ <li><a href="book.html">استشاره مجانيه</a></li>
+                <li><a href="https://wa.me/201025752676" class="cta-button">تواصل معنا</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- القسم الرئيسي -->
+    <section class="hero">
+        <h1>نصل بعلامتك التجارية إلى آفاق جديدة</h1>
+        <p>حلول تسويقية مبتكرة تلبي احتياجات عملك في العالم الرقمي</p>
+        <a href="https://wa.me/201025752676" class="cta-button">تواصل معنا على واتساب</a>
+    </section>
+
+    <!-- قسم الخدمات -->
+    <section class="services">
+        <h2>خدماتنا</h2>
+         <div class="service-card">
+ <h3> استشاره مجانيه</h3>
+            <p> ‎استشارة كامله وتحليل    خبرائنا لمساعدتك في تطوير أعمالك
+</p>
+        </div>
+        <div class="service-card">
+            <h3>إدارة الحملات</h3>
+            <p>إدارة متكاملة لحملاتك الإعلانية على جميع المنصات</p>
+        </div>
+      
+
+        <div class="service-card">
+            <h3>بناء البراند</h3>
+            <p>من اختيار الاسم حتى الانتشار، نصنع هوية مميزة لعلامتك</p>
+        </div>
+        
+        <div class="service-card">
+            <h3>التصوير الدعائي</h3>
+            <p>إنتاج محتوى مرئي احترافي يعبر عن هوية علامتك</p>
+        </div>
+    <style>
+        /* الأساسيات (نفسها كما سبق) */
+        :root {
+            --primary: #4F46E5;
+            --secondary: #10B981;
+            --dark: #1F2937;
+            --light: #F9FAFB;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light);
+            color: var(--dark);
+            transition: all 0.3s ease;
+        }
+        
+        /* (كل أنماط الهيدر وقائمة البرجر السابقة تبقى كما هي) */
+        
+        /* قسم قصص النجاح الجديد */
+        .success-stories {
+            background-color: #f8f9fa;
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+        
+        .success-stories h2 {
+            color: var(--dark);
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stories-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .story-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .story-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .story-card h3 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+        
+        .story-card .result {
+            font-weight: bold;
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin: 1rem 0;
+        }
+        
+        /* قسم الفوتر الجديد */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+        
+        .contact-info {
+            margin-bottom: 2rem;
+        }
+        
+        .contact-info p {
+            margin: 0.5rem 0;
+        }
+        
+        .social-links {
+            margin-bottom: 2rem;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1.5rem;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+        
+        /* (بقية الأنماط السابقة تبقى كما هي) */
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+    <!-- (الهيدر وقائمة البرجر والهيرو والخدمات تبقى كما هي) -->
+    
+    <!-- قسم قصص النجاح المضاف -->
+    <section class="success-stories">
+        <h2>قصص نجاح عملائنا</h2>
+        <div class="stories-container">
+            <div class="story-card">
+                <h3>مطعم كبابجي</h3>
+                <div class="result">+200% زيادة في المبيعات</div>
+                <p>من خلال استراتيجية تسويقية متكاملة على إنستغرام، حققنا زيادة في المبيعات بنسبة 200% خلال 3 أشهر فقط.</p>
+            </div>
+            
+            <div class="story-card">
+                <h3>متجر إلكتروني للأزياء</h3>
+                <div class="result">+150% نمو في المبيعات</div>
+                <p>إدارة متكاملة للحملات الإعلانية مع تحسين تجربة المستخدم أدت إلى مضاعفة المبيعات في أقل من شهرين.</p>
+            </div>
+            
+            <div class="story-card">
+                <h3>شركة سياحة</h3>
+                <div class="result">+300% زيادة في الحجوزات</div>
+                <p>بناء هوية بصرية متكاملة مع حملة إعلانية مبدعة ساعدت في زيادة الحجوزات بنسبة 300% خلال موسم الصيف.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- الفوتر المضاف -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">وُصْلَة</div>
+            
+            <div class="contact-info">
+ 
+                <p><i class="fas fa-phone"></i> 01025752676</p>
+<p><i class="fas fa-phone"></i> 01211320568</p>
+                <p><i class="fas fa-envelope"></i> 
+
+waslastor.eg@gmail.com</p>
+                <p><i class="fas fa-map-marker-alt"></i>  مصر</p>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://www.facebook.com/share/1Zju3iW3tV/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://wa.me/201025752676" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.facebook.com/share/1Zju3iW3tV/?mibextid=wwXIfr" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+            
+            <div class="copyright">
+                <p>جميع الحقوق محفوظة &copy; وُصْلَة 2025</p>
+            </div>
+        </div>
+    </footer>
+
+    </section>
+
+    <script>
+        // التحكم في قائمة البرجر
+        const burgerMenu = document.querySelector('.burger-menu');
+        const navLinks = document.querySelector('.nav-links');
+        const closeMenu = document.querySelector('.close-menu');
+        
+        burgerMenu.addEventListener('click', () => {
+            burgerMenu.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            burgerMenu.classList.remove('active');
+            navLinks.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // إغلاق القائمة عند النقر على رابط
+        const navItems = document.querySelectorAll('.nav-links a');
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth < 768) {
+                    burgerMenu.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

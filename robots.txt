@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://waslaeg.github.io/0/sitemap.xml

@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الخدمات - وُصْلَة</title>
+    <style>
+        /* أنماط عامة */
+        :root {
+            --primary: #4F46E5;
+            --secondary: #10B981;
+            --dark: #1F2937;
+            --light: #F9FAFB;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light);
+            color: var(--dark);
+            transition: all 0.3s ease;
+        }
+        
+        /* قائمة البرجر - نفس التصميم السابق */
+        .header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-left: 10px;
+        }
+        
+        .burger-menu {
+            width: 30px;
+            height: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .burger-line {
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background-color: white;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            padding: 80px 20px 20px;
+            transition: right 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .nav-links.active {
+            right: 0;
+        }
+        
+        .nav-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .nav-links li {
+            margin-bottom: 1.5rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: color 0.3s;
+            display: block;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .cta-button {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .close-menu {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+        
+        .burger-menu.active .burger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .burger-menu.active .burger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .burger-menu.active .burger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+        
+        /* محتوى صفحة الخدمات */
+        .services-hero {
+            background: linear-gradient(135deg, var(--primary), #6C5CE7);
+            color: white;
+            padding: 7rem 1rem 4rem;
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        .services-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .services-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .section-title {
+            color: var(--primary);
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 1rem auto 0;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .service-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .service-card:hover .service-image img {
+            transform: scale(1.1);
+        }
+        
+        .service-content {
+            padding: 1.5rem;
+        }
+        
+        .service-content h3 {
+            color: var(--primary);
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+        
+        .service-content ul {
+            padding-right: 1rem;
+            color: var(--dark);
+        }
+        
+        .service-content li {
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        
+        .service-content li:before {
+            content: "•";
+            color: var(--secondary);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-right: -1em;
+        }
+        
+        .service-cta {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+        
+        /* قسم عرض الخدمات السريع */
+        .quick-services {
+            background-color: #f8f9fa;
+            padding: 4rem 1rem;
+        }
+        
+        .quick-services-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .quick-services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .quick-service-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .quick-service-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .quick-service-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        /* الفوتر - نفس التصميم السابق */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+        
+        .contact-info {
+            margin-bottom: 2rem;
+        }
+        
+        .contact-info p {
+            margin: 0.5rem 0;
+        }
+        
+        .social-links {
+            margin-bottom: 2rem;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1.5rem;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+        
+        /* للتجاوبية */
+        @media (min-width: 768px) {
+            .burger-menu {
+                display: none;
+            }
+            
+            .nav-links {
+                position: static;
+                width: auto;
+                height: auto;
+                background: transparent;
+                box-shadow: none;
+                padding: 0;
+                right: 0;
+            }
+            
+            .nav-links ul {
+                display: flex;
+                gap: 1.5rem;
+            }
+            
+            .nav-links li {
+                margin-bottom: 0;
+            }
+            
+            .close-menu {
+                display: none;
+            }
+            
+            .services-hero {
+                margin-top: 0;
+                padding: 8rem 2rem 6rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- الهيدر مع قائمة البرجر -->
+    <header class="header">
+        <div class="logo">
+            <img src="logo.png" alt="لوجو وصلة">
+            وُصْلَة
+        </div>
+        
+        <div class="burger-menu">
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+        </div>
+        
+        <nav class="nav-links">
+            <i class="fas fa-times close-menu"></i>
+            <ul>
+                  <li><a href="index.html">الرئيسية</a></li>
+<li><a href="about.html">من نحن</a></li>
+                <li><a href="services.html">الخدمات</a></li>
+                <li><a href="portfolio.html">أعمالنا</a></li>
+                <li><a href="test.html">اراء العملاء</a></li>
+<li><a href="blog.html">المدونه </a></li>
+ <li><a href="book.html">استشاره مجانيه</a></li>
+                <li><a href="https://wa.me/201025752676" class="cta-button">تواصل معنا</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- قسم الهيرو لصفحة الخدمات -->
+    <section class="services-hero">
+        <h1>خدماتنا المتكاملة</h1>
+        <p>حلول تسويقية مبتكرة مصممة خصيصًا لتنمية أعمالك</p>
+    </section>
+
+    <!-- قسم الخدمات الرئيسية -->
+    <div class="services-container">
+        <h2 class="section-title">خدماتنا الاحترافية</h2>
+        
+        <div class="services-grid">
+            <!-- خدمة إدارة الحملات -->
+            <div class="service-card">
+                
+                <div class="service-content">
+                    <h3>إدارة الحملات الإعلانية</h3>
+                    <ul>
+                        <li>إدارة متكاملة لحملاتك على فيسبوك وإنستجرام</li>
+                        <li>تحسين الحملات للحصول على أفضل النتائج</li>
+                        <li>تحليل البيانات وقياس الأداء</li>
+                        <li>إعداد التقارير الدورية</li>
+                        <li>إدارة الميزانيات وتحقيق أفضل عائد استثمار</li>
+                    </ul>
+                    <div class="service-cta">
+                        <a href="book.html" class="cta-button">اطلب الخدمة</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- خدمة بناء البراند -->
+            <div class="service-card">
+             
+                <div class="service-content">
+                    <h3>بناء الهوية البصرية</h3>
+                    <ul>
+                        <li>تصميم شعار احترافي يعبر عن هويتك</li>
+                        <li>تطوير دليل الهوية البصرية</li>
+                        <li>اختيار الألوان والخطوط المناسبة</li>
+                        <li>تصميم المواد الدعائية المطبوعة</li>
+                        <li>إنشاء قوالب متسقة لجميع التواصليات</li>
+                    </ul>
+                    <div class="service-cta">
+                        <a href="book.html" class="cta-button">اطلب الخدمة</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- خدمة التصوير الدعائي -->
+            <div class="service-card">
+                
+                <div class="service-content">
+                    <h3>التصوير الدعائي</h3>
+                    <ul>
+                        <li>تصوير المنتجات باحترافية</li>
+                        <li>جلسات تصوير للفريق والعملاء</li>
+                        <li>إنتاج محتوى مرئي لوسائل التواصل</li>
+                        <li>تصوير الفعاليات والفعاليات الخاصة</li>
+                        <li>معالجة الصور وتحسينها</li>
+                    </ul>
+                    <div class="service-cta">
+                        <a href="book.html" class="cta-button">اطلب الخدمة</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- خدمة التسويق بالمحتوى -->
+            <div class="service-card">
+               
+                <div class="service-content">
+                    <h3>التسويق بالمحتوى</h3>
+                    <ul>
+                        <li>إستراتيجية محتوى مخصصة لعلامتك</li>
+                        <li>إنشاء محتوى جذاب وفعال</li>
+                        <li>إدارة مدونة العلامة التجارية</li>
+                        <li>كتابة نصوص إعلانية احترافية</li>
+                        <li>إنتاج محتوى متوافق مع SEO</li>
+                    </ul>
+                    <div class="service-cta">
+                        <a href="book.html" class="cta-button">اطلب الخدمة</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- خدمة إدارة السوشيال ميديا -->
+            <div class="service-card">
+               
+                <div class="service-content">
+                    <h3>إدارة وسائل التواصل الاجتماعي</h3>
+                    <ul>
+                        <li>إدارة متكاملة لجميع المنصات</li>
+                        <li>إنشاء محتوى مخصص لكل منصة</li>
+                        <li>الرد على التعليقات والرسائل</li>
+                        <li>تحليل أداء المنصات</li>
+                        <li>بناء استراتيجية النمو</li>
+                    </ul>
+                    <div class="service-cta">
+                        <a href="book.html" class="cta-button">اطلب الخدمة</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- خدمة تصميم المواقع -->
+            <div class="service-card">
+               
+                <div class="service-content">
+                    <h3>تصميم المواقع والمتاجر الإلكترونية</h3>
+                    <ul>
+                        <li>تصميم مواقع متجاوبة وسريعة</li>
+                        <li>تطوير متاجر إلكترونية متكاملة</li>
+                        <li>تحسين تجربة المستخدم</li>
+                        <li>ربط أنظمة الدفع والشحن</li>
+                        <li>صيانة وتحديث مستمر</li>
+                    </ul>
+                    <div class="service-cta">
+                        <a href="book.html" class="cta-button">اطلب الخدمة</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- قسم الخدمات السريعة -->
+    <section class="quick-services">
+        <div class="quick-services-container">
+            <h2 class="section-title">حلول سريعة لأعمالك</h2>
+            
+            <div class="quick-services-grid">
+                <div class="quick-service-card">
+                    <div class="quick-service-icon">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <h3>حملة إعلانية سريعة</h3>
+                    <p>إطلاق حملة إعلانية مدتها أسبوعين لتعزيز مبيعاتك</p>
+                </div>
+                
+                <div class="quick-service-card">
+                    <div class="quick-service-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>تصميم شعار</h3>
+                    <p>تصميم شعار احترافي لعلامتك خلال 5 أيام</p>
+                </div>
+                
+                <div class="quick-service-card">
+                    <div class="quick-service-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h3>جلسة تصوير</h3>
+                    <p>جلسة تصوير منتجات أو شخصية لمحتوى وسائل التواصل</p>
+                </div>
+                
+                <div class="quick-service-card">
+                    <div class="quick-service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>تحليل أداء</h3>
+                    <p>تقرير مفصل عن أداء حملاتك الحالية مع توصيات للتحسين</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">وُصْلَة</div>
+            
+            <div class="contact-info">
+ 
+                <p><i class="fas fa-phone"></i> 01025752676</p>
+<p><i class="fas fa-phone"></i> 01211320568</p>
+                <p><i class="fas fa-envelope"></i> 
+
+waslastor.eg@gmail.com</p>
+                <p><i class="fas fa-map-marker-alt"></i>  مصر</p>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://www.facebook.com/share/1Zju3iW3tV/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://wa.me/201025752676" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.facebook.com/share/1Zju3iW3tV/?mibextid=wwXIfr" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+            
+            <div class="copyright">
+                <p>جميع الحقوق محفوظة &copy; وُصْلَة 2025</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // سكريبت قائمة البرجر
+        document.addEventListener('DOMContentLoaded', function() {
+            const burgerMenu = document.querySelector('.burger-menu');
+            const navLinks = document.querySelector('.nav-links');
+            const closeMenu = document.querySelector('.close-menu');
+            const body = document.body;
+            
+            // فتح/إغلاق القائمة
+            burgerMenu.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                burgerMenu.classList.toggle('active');
+                
+                if (navLinks.classList.contains('active')) {
+                    body.style.overflow = 'hidden';
+                } else {
+                    body.style.overflow = 'auto';
+                }
+            });
+            
+            // إغلاق القائمة بزر الإغلاق
+            closeMenu.addEventListener('click', function() {
+                navLinks.classList.remove('active');
+                burgerMenu.classList.remove('active');
+                body.style.overflow = 'auto';
+            });
+            
+            // إغلاق القائمة عند النقر على رابط
+            const navItems = document.querySelectorAll('.nav-links a');
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    if (window.innerWidth < 768) {
+                        navLinks.classList.remove('active');
+                        burgerMenu.classList.remove('active');
+                        body.style.overflow = 'auto';
+                    }
+                });
+            });
+            
+            // التأكد من إغلاق القائمة عند تكبير الشاشة
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 768) {
+                    navLinks.classList.remove('active');
+                    burgerMenu.classList.remove('active');
+                    body.style.overflow = 'auto';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

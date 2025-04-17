@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>من نحن - وُصْلَة</title>
+    <style>
+        /* أنماط عامة */
+        :root {
+            --primary: #4F46E5;
+            --secondary: #10B981;
+            --dark: #1F2937;
+            --light: #F9FAFB;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light);
+            color: var(--dark);
+            transition: all 0.3s ease;
+        }
+        
+        /* قائمة البرجر المحدثة */
+        .header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-left: 10px;
+        }
+        
+        .burger-menu {
+            width: 30px;
+            height: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .burger-line {
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background-color: white;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            padding: 80px 20px 20px;
+            transition: right 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .nav-links.active {
+            right: 0;
+        }
+        
+        .nav-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .nav-links li {
+            margin-bottom: 1.5rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: color 0.3s;
+            display: block;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .cta-button {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .close-menu {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+        
+        .burger-menu.active .burger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .burger-menu.active .burger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .burger-menu.active .burger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+        
+        /* محتوى الصفحة */
+        .about-hero {
+            background: linear-gradient(135deg, var(--primary), #6C5CE7);
+            color: white;
+            padding: 7rem 1rem 4rem;
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        .about-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .section-title {
+            color: var(--primary);
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 1rem auto 0;
+        }
+        
+        .our-story {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 3rem;
+        }
+        
+        .story-timeline {
+            position: relative;
+            padding-right: 30px;
+        }
+        
+        .story-timeline:before {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+        }
+        
+        .timeline-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .timeline-item:before {
+            content: "";
+            position: absolute;
+            right: -33px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--secondary);
+            border: 3px solid var(--primary);
+        }
+        
+        .timeline-item h3 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+        
+        .team-section {
+            margin-top: 4rem;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .team-member {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+        
+        .member-image {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .team-member:hover .member-image img {
+            transform: scale(1.1);
+        }
+        
+        .member-shadow {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .team-member:hover .member-shadow {
+            opacity: 1;
+        }
+        
+        .member-info {
+            padding: 1.5rem;
+        }
+        
+        .member-info h3 {
+            margin: 0 0 0.5rem;
+            color: var(--dark);
+        }
+        
+        .member-info p {
+            margin: 0;
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        /* الفوتر */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+        
+        .contact-info {
+            margin-bottom: 2rem;
+        }
+        
+        .contact-info p {
+            margin: 0.5rem 0;
+        }
+        
+        .social-links {
+            margin-bottom: 2rem;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1.5rem;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+        
+        /* للتجاوبية */
+        @media (min-width: 768px) {
+            .burger-menu {
+                display: none;
+            }
+            
+            .nav-links {
+                position: static;
+                width: auto;
+                height: auto;
+                background: transparent;
+                box-shadow: none;
+                padding: 0;
+                right: 0;
+            }
+            
+            .nav-links ul {
+                display: flex;
+                gap: 1.5rem;
+            }
+            
+            .nav-links li {
+                margin-bottom: 0;
+            }
+            
+            .close-menu {
+                display: none;
+            }
+            
+            .about-hero {
+                margin-top: 0;
+                padding: 8rem 2rem 6rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- الهيدر مع قائمة البرجر المحدثة -->
+    <header class="header">
+        <div class="logo">
+            <img src="logo.png" alt="لوجو وصلة">
+            وُصْلَة
+        </div>
+        
+        <div class="burger-menu">
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+        </div>
+        
+        <nav class="nav-links">
+            <i class="fas fa-times close-menu"></i>
+            <ul>
+                   <li><a href="index.html">الرئيسية</a></li>
+<li><a href="about.html">من نحن</a></li>
+                <li><a href="services.html">الخدمات</a></li>
+                <li><a href="portfolio.html">أعمالنا</a></li>
+                <li><a href="test.html">اراء العملاء</a></li>
+<li><a href="blog.html">المدونه </a></li>
+ <li><a href="book.html">استشاره مجانيه</a></li>
+                <li><a href="https://wa.me/201025752676" class="cta-button">تواصل معنا</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- محتوى الصفحة -->
+    <section class="about-hero">
+        <h1>من نحن</h1>
+        <p>قصة بدايتنا ورحلتنا نحو التميز في عالم التسويق الرقمي</p>
+    </section>
+
+    <div class="about-container">
+        <section class="our-story">
+            <h2 class="section-title">قصتنا</h2>
+            
+            <div class="story-timeline">
+                <div class="timeline-item">
+                    <h3>البداية من الصفر</h3>
+                    <p>2018</p>
+                    <p>في شتاء 2018، قرر <strong>مؤمن نصار</strong> - الذي يعشق التسويق الرقمي - تحويل شغفه إلى مشروع تجاري. أسس شركته الصغيرة تحت اسم "MKA". مؤمن آمن بأن "الحلول التسويقية المبتكرة لا تحتاج إلى ميزانيات ضخمة، بل إلى أفكار ذكية".</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3>التحول إلى علامة مميزة</h3>
+                    <p>2019-2021</p>
+                    <p>بحلول 2019، بدأت الشركة في جذب عملاء جدد بفضل:</p>
+                    <ul>
+                        <li><strong>استراتيجية "التسويق القصصي"</strong>: حيث حوّل كل حملة إلى قصة تشد الجمهور.</li>
+                        <li><strong>التركيز على القطاع العقاري والمطاعم والتجارة الإلكترونية</strong> </li>
+                        <li>أول نجاح كبير: زيادة مبيعات أحد الشركات العقارية بنسبة 130% خلال 3 أشهر </li>
+                    </ul>
+                </div>
+      <div class="timeline-item">
+                    <h3>كسب ثقة العملاء اثناء الازمات</h3>
+                    <p>2020-2021</p>
+                    <p>في 2020، ومع انتشار الكورونا، انقلب السوق رأسًا على عقب، لكن فريق **MKA** استغل الفرصه</p>
+                    <ul>
+                        <li>تقديم عروض "حملات تسويقية" بأسعار تناسب الشركات المتضررة. </li>
+                        <li>تطوير خدمة "إدارة الأزمات الإلكترونية" بعد أن لاحظ حاجة العلامات التجارية لحماية سمعتها خلال الأزمات </li>
+                    </ul>
+                </div>           
+
+
+
+
+
+                <div class="timeline-item">
+                    <h3>الطفرة والانتشار</h3>
+                    <p>2022-2023</p>
+                    <p>بحلول 2022، حققت الشركة إنجازات كبيرة:</p>
+                    <ul>
+                        <li>التعاون مع علامات تجارية كبرى في السوق المصري والخليجي.</li>
+                        <li>توسع فريق العمل ليشمل 5 متخصصين في مجالات مختلفة.</li>
+<li>لكن لاحظو شيئًا مهمًا: الاسم "MKA" لم يعد يعبر عن رؤية الشركة الجديدة.</li>
+                    </ul>
+                </div>
+                
+                <div class="timeline-item">
+                    <h3>إعادة الاختراع تحت اسم "وُصْلَة"</h3>
+                    <p>2024</p>
+                    <p>في فبراير 2024، أعلنو عن إعادة براندرة الشركة باسم "وُصْلَة" معلنين أن الاسم الجديد يعكس فلسفتهم:</p>
+                    <ul>
+                        <li><strong>"وصل"</strong> بين العلامات التجارية وجمهورها بطرق إبداعية.</li>
+                        <li><strong>"الوصول"</strong> إلى نتائج ملموسة.</li>
+                        <li><strong>"الاتصال"</strong> بالتوجهات الحديثة مثل الميتافيرس والتسويق بالذكاء الاصطناعي.</li>
+                    </ul>
+                </div>
+<div class="timeline-item">
+                    <h3>النجاحات حتى اليوم</h3>
+                    <p>2025</p>
+                    <p>وُصْلَة الآن تدير حملات لـ 50+ عميلًا في 5 دول عربية وفي مختلف المجالات</p>
+            </div>
+        </section>
+        
+        <section class="team-section">
+            <h2 class="section-title">فريقنا</h2>
+            
+            <div class="team-grid">
+                <div class="team-member">
+<div class="team-member">
+                    <div class="member-image">
+                        <img src="member2.jpg" alt="أحمد علي">
+                        <div class="member-shadow"></div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Kerolos Abdelmalak</h3>
+                        <p>Media Bayer</p>
+                    </div>
+                </div>
+                    <div class="member-image">
+                        <img src="member1.jpg" alt="مؤمن نصار">
+                        <div class="member-shadow"></div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Momen Nassar</h3>
+                        <p>Media Bayer</p>
+                    </div>
+                </div>
+                
+                
+                
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="member3.jpg" alt="سارة محمد">
+                        <div class="member-shadow"></div>
+                    </div>
+                    <div class="member-info">
+                        <h3> Thapet Montser</h3>
+                        <p>Reel creator / Graphic Designer   </p>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="member4.jpg" alt="خالد وليد">
+                        <div class="member-shadow"></div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Mark Maher</h3>
+                        <p>  Content writer</p>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-image">
+                        <img src="member5.jpg" alt="نورا كمال">
+                        <div class="member-shadow"></div>
+                    </div>
+                    <div class="member-info">
+                        <h3>Alaa Yasser</h3>
+                        <p> Web Divobler / SEO Specialist </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- الفوتر -->
+   <footer>
+        <div class="footer-content">
+            <div class="footer-logo">وُصْلَة</div>
+            
+            <div class="contact-info">
+ 
+                <p><i class="fas fa-phone"></i> 01025752676</p>
+<p><i class="fas fa-phone"></i> 01211320568</p>
+                <p><i class="fas fa-envelope"></i> 
+
+waslastor.eg@gmail.com</p>
+                <p><i class="fas fa-map-marker-alt"></i>  مصر</p>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://www.facebook.com/share/1Zju3iW3tV/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://wa.me/201025752676" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.facebook.com/share/1Zju3iW3tV/?mibextid=wwXIfr" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+            
+            <div class="copyright">
+                <p>جميع الحقوق محفوظة &copy; وُصْلَة 2025</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // سكريبت قائمة البرجر
+        document.addEventListener('DOMContentLoaded', function() {
+            const burgerMenu = document.querySelector('.burger-menu');
+            const navLinks = document.querySelector('.nav-links');
+            const closeMenu = document.querySelector('.close-menu');
+            const body = document.body;
+            
+            // فتح/إغلاق القائمة
+            burgerMenu.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                burgerMenu.classList.toggle('active');
+                
+                if (navLinks.classList.contains('active')) {
+                    body.style.overflow = 'hidden';
+                } else {
+                    body.style.overflow = 'auto';
+                }
+            });
+            
+            // إغلاق القائمة بزر الإغلاق
+            closeMenu.addEventListener('click', function() {
+                navLinks.classList.remove('active');
+                burgerMenu.classList.remove('active');
+                body.style.overflow = 'auto';
+            });
+            
+            // إغلاق القائمة عند النقر على رابط
+            const navItems = document.querySelectorAll('.nav-links a');
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    if (window.innerWidth < 768) {
+                        navLinks.classList.remove('active');
+                        burgerMenu.classList.remove('active');
+                        body.style.overflow = 'auto';
+                    }
+                });
+            });
+            
+            // التأكد من إغلاق القائمة عند تكبير الشاشة
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 768) {
+                    navLinks.classList.remove('active');
+                    burgerMenu.classList.remove('active');
+                    body.style.overflow = 'auto';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

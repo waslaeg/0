@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المدونة - وُصْلَة</title>
+    <style>
+        /* أنماط عامة */
+        :root {
+            --primary: #4F46E5;
+            --secondary: #10B981;
+            --dark: #1F2937;
+            --light: #F9FAFB;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light);
+            color: var(--dark);
+            transition: all 0.3s ease;
+        }
+        
+        /* قائمة البرجر - نفس التصميم السابق */
+        .header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-left: 10px;
+        }
+        
+        .burger-menu {
+            width: 30px;
+            height: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .burger-line {
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background-color: white;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            padding: 80px 20px 20px;
+            transition: right 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .nav-links.active {
+            right: 0;
+        }
+        
+        .nav-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .nav-links li {
+            margin-bottom: 1.5rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: color 0.3s;
+            display: block;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .cta-button {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .close-menu {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+        
+        .burger-menu.active .burger-line:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .burger-menu.active .burger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .burger-menu.active .burger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+        
+        /* محتوى صفحة المدونة */
+        .blog-hero {
+            background: linear-gradient(135deg, var(--primary), #6C5CE7);
+            color: white;
+            padding: 7rem 1rem 4rem;
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        .blog-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .blog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .section-title {
+            color: var(--primary);
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 1rem auto 0;
+        }
+        
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .blog-post {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .blog-post:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .post-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .blog-post:hover .post-image img {
+            transform: scale(1.1);
+        }
+        
+        .post-content {
+            padding: 1.5rem;
+        }
+        
+        .post-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--dark);
+            opacity: 0.7;
+        }
+        
+        .post-date {
+            margin-left: 0.5rem;
+        }
+        
+        .post-category {
+            background: var(--light);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .post-content h3 {
+            margin: 0 0 1rem;
+            color: var(--dark);
+            font-size: 1.3rem;
+        }
+        
+        .post-excerpt {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .read-more {
+            color: var(--primary);
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .read-more:hover {
+            text-decoration: underline;
+        }
+        
+        .read-more i {
+            margin-right: 5px;
+        }
+        
+        /* قسم النشرة البريدية */
+        .newsletter-section {
+            background: #f8f9fa;
+            padding: 4rem 1rem;
+            margin-top: 4rem;
+        }
+        
+        .newsletter-container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .newsletter-form input {
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        /* الفوتر - نفس التصميم السابق */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+        
+        .contact-info {
+            margin-bottom: 2rem;
+        }
+        
+        .contact-info p {
+            margin: 0.5rem 0;
+        }
+        
+        .social-links {
+            margin-bottom: 2rem;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 1.5rem;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+        
+        /* للتجاوبية */
+        @media (min-width: 768px) {
+            .burger-menu {
+                display: none;
+            }
+            
+            .nav-links {
+                position: static;
+                width: auto;
+                height: auto;
+                background: transparent;
+                box-shadow: none;
+                padding: 0;
+                right: 0;
+            }
+            
+            .nav-links ul {
+                display: flex;
+                gap: 1.5rem;
+            }
+            
+            .nav-links li {
+                margin-bottom: 0;
+            }
+            
+            .close-menu {
+                display: none;
+            }
+            
+            .blog-hero {
+                margin-top: 0;
+                padding: 8rem 2rem 6rem;
+            }
+            
+            .newsletter-form {
+                flex-direction: row;
+            }
+            
+            .newsletter-form input {
+                flex: 1;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- الهيدر مع قائمة البرجر -->
+    <header class="header">
+        <div class="logo">
+            <img src="logo.png" alt="لوجو وصلة">
+            وُصْلَة
+        </div>
+        
+        <div class="burger-menu">
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+            <div class="burger-line"></div>
+        </div>
+        
+        <nav class="nav-links">
+            <i class="fas fa-times close-menu"></i>
+            <ul>
+                 <li><a href="index.html">الرئيسية</a></li>
+<li><a href="about.html">من نحن</a></li>
+                <li><a href="services.html">الخدمات</a></li>
+                <li><a href="portfolio.html">أعمالنا</a></li>
+                <li><a href="test.html">اراء العملاء</a></li>
+<li><a href="blog.html">المدونه </a></li>
+ <li><a href="book.html">استشاره مجانيه</a></li>
+                <li><a href="https://wa.me/201025752676" class="cta-button">تواصل معنا</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- قسم الهيرو لصفحة المدونة -->
+    <section class="blog-hero">
+        <h1>مدونة وُصْلَة</h1>
+        <p>أحدث المقالات والنصائح في عالم التسويق الرقمي</p>
+    </section>
+
+    <!-- محتوى الصفحة -->
+    <div class="blog-container">
+        <h2 class="section-title">آخر المقالات</h2>
+        
+        <div class="blog-grid">
+            <!-- مقال 1 -->
+            <article class="blog-post">
+                <div class="post-image">
+                    <img src="post1.jpg" alt="أهم استراتيجيات التسويق الرقمي">
+                </div>
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span class="post-category">تسويق رقمي</span>
+                        <span class="post-date">15 يناير 2023</span>
+                    </div>
+                    <h3>أهم استراتيجيات التسويق الرقمي في 2023</h3>
+                    <p class="post-excerpt">استكشف أهم الاتجاهات والاستراتيجيات التي ستشكل عالم التسويق الرقمي هذا العام وكيف يمكنك الاستفادة منها لتنمية أعمالك.</p>
+                    <a href="https://skillshop.exceedlms.com/student/home/edit_company_info" class="read-more">
+                        <i class="fas fa-book-open"></i> اقرأ المزيد
+                    </a>
+                </div>
+            </article>
+            
+            <!-- مقال 2 -->
+            <article class="blog-post">
+                <div class="post-image">
+                    <img src="post2.jpg" alt="كيف تختار اسم علامتك التجارية">
+                </div>
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span class="post-category">بناء البراند</span>
+                        <span class="post-date">5 ديسمبر 2022</span>
+                    </div>
+                    <h3>كيف تختار اسم علامتك التجارية؟</h3>
+                    <p class="post-excerpt">دليل شامل لاختيار اسم مميز لعلامتك التجارية يلخص هويتها ويساعد في انتشارها وتميزها عن المنافسين.</p>
+                    <a href="https://skillshop.exceedlms.com/student/collection/825855-build-your-bussiness-online-mena?locale=ar&utm_source=google&utm_medium=institutions&utm_campaign=sou--direct__med--none-direct__cam--gwgsite__con--null__ter--null" class="read-more">
+                        <i class="fas fa-book-open"></i> اقرأ المزيد
+                    </a>
+                </div>
+            </article>
+            
+            <!-- مقال 3 -->
+            <article class="blog-post">
+                <div class="post-image">
+                    <img src="post3.jpg" alt="10 أخطاء في إدارة الحملات الإعلانية">
+                </div>
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span class="post-category">إعلانات</span>
+                        <span class="post-date">20 نوفمبر 2022</span>
+                    </div>
+                    <h3>10 أخطاء في إدارة الحملات الإعلانية</h3>
+                    <p class="post-excerpt">تعرف على أكثر الأخطاء شيوعاً في إدارة الحملات الإعلانية وكيفية تجنبها لتحقيق أفضل النتائج بأقل التكاليف.</p>
+                    <a href="https://www.google.com/intl/ar_sa/retail/manufacturer-center/" class="read-more">
+                        <i class="fas fa-book-open"></i> اقرأ المزيد
+                    </a>
+                </div>
+            </article>
+            
+            <!-- مقال 4 -->
+            <article class="blog-post">
+                <div class="post-image">
+                    <img src="post4.jpg" alt="تحسين محركات البحث SEO">
+                </div>
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span class="post-category">SEO</span>
+                        <span class="post-date">10 أكتوبر 2022</span>
+                    </div>
+                    <h3>دليل المبتدئين لتحسين محركات البحث (SEO)</h3>
+                    <p class="post-excerpt">كل ما تحتاج معرفته للبدء في تحسين موقعك لمحركات البحث وزيادة الزيارات العضوية بشكل مستدام.</p>
+                    <a href="https://skillshop.withgoogle.com/intl/ar_ALL/" class="read-more">
+                        <i class="fas fa-book-open"></i> اقرأ المزيد
+                    </a>
+                </div>
+            </article>
+            
+            <!-- مقال 5 -->
+            <article class="blog-post">
+                <div class="post-image">
+                    <img src="post5.jpg" alt="التسويق عبر المؤثرين">
+                </div>
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span class="post-category">تسويق</span>
+                        <span class="post-date">25 سبتمبر 2022</span>
+                    </div>
+                    <h3>كيف تستفيد من التسويق عبر المؤثرين؟</h3>
+                    <p class="post-excerpt">استراتيجيات فعالة للتعاون مع المؤثرين المناسبين لعلامتك التجارية لزيادة الوعي والمبيعات.</p>
+                    <a href="https://marketfinder.thinkwithgoogle.com/intl/en-145" class="read-more">
+                        <i class="fas fa-book-open"></i> اقرأ المزيد
+                    </a>
+                </div>
+            </article>
+            
+            <!-- مقال 6 -->
+            <article class="blog-post">
+                <div class="post-image">
+                    <img src="post6.jpg" alt="تصميم الهوية البصرية">
+                </div>
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span class="post-category">تصميم</span>
+                        <span class="post-date">15 أغسطس 2022</span>
+                    </div>
+                    <h3>أساسيات تصميم الهوية البصرية الناجحة</h3>
+                    <p class="post-excerpt">كيف تصمم هوية بصرية متكاملة تعبر عن قيم علامتك التجارية وتجذب عملائك المستهدفين.</p>
+                    <a href="https://skillshop.exceedlms.com/student/collection/1384851/?locale=ar&utm_source=google&utm_medium=institutions&utm_campaign=sou--direct__med--none-direct__cam--gwgsite__con--null__ter--null" class="read-more">
+                        <i class="fas fa-book-open"></i> اقرأ المزيد
+                    </a>
+                </div>
+            </article>
+        </div>
+        
+        <!-- ترقيم الصفحات -->
+        <div class="pagination" style="margin-top: 3rem; text-align: center;">
+            <a href="#" class="cta-button" style="margin: 0 0.5rem;">1</a>
+            <a href="#" style="margin: 0 0.5rem;">2</a>
+            <a href="#" style="margin: 0 0.5rem;">3</a>
+            <a href="#" style="margin: 0 0.5rem;">التالي</a>
+        </div>
+    </div>
+
+
+    <!-- الفوتر -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">وُصْلَة</div>
+            
+            <div class="contact-info">
+ 
+                <p><i class="fas fa-phone"></i> 01025752676</p>
+<p><i class="fas fa-phone"></i> 01211320568</p>
+                <p><i class="fas fa-envelope"></i> 
+
+waslastor.eg@gmail.com</p>
+                <p><i class="fas fa-map-marker-alt"></i>  مصر</p>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://www.facebook.com/share/1Zju3iW3tV/?mibextid=wwXIfr" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://wa.me/201025752676" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.facebook.com/share/1Zju3iW3tV/?mibextid=wwXIfr" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+            
+            <div class="copyright">
+                <p>جميع الحقوق محفوظة &copy; وُصْلَة 2025</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // سكريبت قائمة البرجر
+        document.addEventListener('DOMContentLoaded', function() {
+            const burgerMenu = document.querySelector('.burger-menu');
+            const navLinks = document.querySelector('.nav-links');
+            const closeMenu = document.querySelector('.close-menu');
+            const body = document.body;
+            
+            // فتح/إغلاق القائمة
+            burgerMenu.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                burgerMenu.classList.toggle('active');
+                
+                if (navLinks.classList.contains('active')) {
+                    body.style.overflow = 'hidden';
+                } else {
+                    body.style.overflow = 'auto';
+                }
+            });
+            
+            // إغلاق القائمة بزر الإغلاق
+            closeMenu.addEventListener('click', function() {
+                navLinks.classList.remove('active');
+                burgerMenu.classList.remove('active');
+                body.style.overflow = 'auto';
+            });
+            
+            // إغلاق القائمة عند النقر على رابط
+            const navItems = document.querySelectorAll('.nav-links a');
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    if (window.innerWidth < 768) {
+                        navLinks.classList.remove('active');
+                        burgerMenu.classList.remove('active');
+                        body.style.overflow = 'auto';
+                    }
+                });
+            });
+            
+            // التأكد من إغلاق القائمة عند تكبير الشاشة
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 768) {
+                    navLinks.classList.remove('active');
+                    burgerMenu.classList.remove('active');
+                    body.style.overflow = 'auto';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
